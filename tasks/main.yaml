@@ -1,0 +1,23 @@
+---
+- name: Configuring http proxy for apt
+  lineinfile:
+    path: /etc/apt/apt.conf
+    create: true
+    regexp: '^Acquire::http::Proxy'
+    line: 'Acquire::http::Proxy "{{proxy}}";'
+    state: present
+  notify:
+    - update apt cache for apt-set-proxy
+
+- name: Configuring https proxy for apt
+  lineinfile:
+    path: /etc/apt/apt.conf
+    create: true
+    regexp: '^Acquire::https::Proxy'
+    line: 'Acquire::https::Proxy "{{proxy}}";'
+    state: present
+  notify:
+    - update apt cache for apt-set-proxy
+
+- name: Flushing handlers
+  meta: flush_handlers

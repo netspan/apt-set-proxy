@@ -1,0 +1,6 @@
+---
+- name: Updating apt cache after configuring proxy for apt
+  apt:
+    update_cache: yes
+  listen:
+   - update apt cache for apt-set-proxy
